@@ -1,255 +1,762 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Questionário de Classificação de Stakeholders</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    fieldset { margin-bottom: 20px; padding: 15px; }
-    legend { font-weight: bold; }
-    label { display: block; margin: 5px 0; }
-    .inline { display: inline-block; margin-right: 10px; }
-    textarea { width: 100%; height: 80px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionário de Classificação de Stakeholders</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff6b35, #f7931e, #ffd700);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff4500, #ff6b35);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .form-content {
+            padding: 30px;
+        }
+
+        fieldset {
+            border: 2px solid #ff6b35;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: linear-gradient(145deg, #fff9f5, #fef7f0);
+        }
+
+        legend {
+            background: linear-gradient(135deg, #ff6b35, #ff4500);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            box-shadow: 0 4px 8px rgba(255,107,53,0.3);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="date"],
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="date"]:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff6b35;
+            box-shadow: 0 0 10px rgba(255,107,53,0.3);
+        }
+
+        .form-group textarea {
+            height: 80px;
+            resize: vertical;
+        }
+
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #ffd700;
+        }
+
+        .question h3 {
+            color: #ff4500;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            background: #fff9f5;
+            padding: 10px 15px;
+            border-radius: 25px;
+            border: 2px solid #ffd700;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 180px;
+        }
+
+        .radio-option:hover {
+            background: #ffd700;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255,215,0,0.3);
+        }
+
+        .radio-option input[type="radio"] {
+            margin-right: 8px;
+            transform: scale(1.2);
+        }
+
+        .radio-option input[type="radio"]:checked + span {
+            font-weight: bold;
+            color: #ff4500;
+        }
+
+        .btn-container {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ff6b35, #ff4500);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(255,107,53,0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255,107,53,0.6);
+        }
+
+        .results-page {
+            display: none;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #fff, #fef7f0);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 6px solid #ff6b35;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .result-header {
+            background: linear-gradient(135deg, #ff4500, #ff6b35);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .score-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .score-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #ffd700;
+        }
+
+        .score-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ff4500;
+        }
+
+        .classification-result {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            border: 3px solid #ff6b35;
+        }
+
+        .classification-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ff4500;
+            margin-bottom: 10px;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, #666, #888);
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-right: 15px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .radio-group {
+                flex-direction: column;
+            }
+            
+            .radio-option {
+                min-width: 100%;
+            }
+            
+            .score-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <!-- PÁGINA DO QUESTIONÁRIO -->
+        <div id="questionnaire-page">
+            <div class="header">
+                <h1>Questionário de Classificação de Stakeholders</h1>
+                <p>Complete todas as seções para obter a classificação adequada do stakeholder</p>
+            </div>
 
-  <h1>Questionário de Classificação de Stakeholders</h1>
-  <form id="stakeholder-form">
+            <div class="form-content">
+                <form id="stakeholder-form">
+                    <!-- SEÇÃO A: IDENTIFICAÇÃO -->
+                    <fieldset>
+                        <legend>📋 Identificação do Stakeholder</legend>
+                        <div class="form-group">
+                            <label for="nome">Nome/Função do Stakeholder:</label>
+                            <input type="text" id="nome" name="nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="departamento">Departamento/Área:</label>
+                            <input type="text" id="departamento" name="departamento">
+                        </div>
+                        <div class="form-group">
+                            <label for="data">Data da Avaliação:</label>
+                            <input type="date" id="data" name="data">
+                        </div>
+                    </fieldset>
 
-    <!-- SEÇÃO A -->
-    <fieldset>
-      <legend>Seção A: Identificação do Stakeholder</legend>
-      <label for="nome">Nome/Função do Stakeholder:
-        <input type="text" id="nome" name="nome" required>
-      </label>
-      <label for="departamento">Departamento/Área:
-        <input type="text" id="departamento" name="departamento">
-      </label>
-      <label for="data">Data da Avaliação:
-        <input type="date" id="data" name="data">
-      </label>
-    </fieldset>
+                    <!-- SEÇÃO B: INTERESSE -->
+                    <fieldset>
+                        <legend>💡 Avaliação de Interesse</legend>
+                        
+                        <div class="question">
+                            <h3>1. Qual o nível de interesse deste stakeholder no projeto de mudança?</h3>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="interesse1" value="4" required>
+                                    <span>Muito Alto (4 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="interesse1" value="3">
+                                    <span>Alto (3 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="interesse1" value="2">
+                                    <span>Moderado (2 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="interesse1" value="1">
+                                    <span>Baixo (1 pt)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="interesse1" value="0">
+                                    <span>Muito Baixo (0 pts)</span>
+                                </label>
+                            </div>
+                        </div>
 
-    <!-- SEÇÃO B -->
-    <fieldset>
-      <legend>Seção B: Avaliação de Interesse</legend>
+                        <div class="question">
+                            <h3>2. Como este stakeholder reage quando o projeto é mencionado?</h3>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="interesse2" value="4" required>
+                                    <span>Muito Positiva (4 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="interesse2" value="3">
+                                    <span>Positiva (3 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="interesse2" value="2">
+                                    <span>Neutra (2 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="interesse2" value="1">
+                                    <span>Negativa (1 pt)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="interesse2" value="0">
+                                    <span>Muito Negativa (0 pts)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
 
-      <p>1. Qual o nível de interesse deste stakeholder no projeto de mudança?</p>
-      <label class="inline">
-        <input type="radio" name="interesse1" value="4" required>
-        Muito Alto (4 pontos)
-      </label>
-      <label class="inline">
-        <input type="radio" name="interesse1" value="3">
-        Alto (3 pontos)
-      </label>
-      <label class="inline">
-        <input type="radio" name="interesse1" value="2">
-        Moderado (2 pontos)
-      </label>
-      <label class="inline">
-        <input type="radio" name="interesse1" value="1">
-        Baixo (1 ponto)
-      </label>
-      <label class="inline">
-        <input type="radio" name="interesse1" value="0">
-        Muito Baixo (0 pontos)
-      </label>
+                    <!-- SEÇÃO C: INFLUÊNCIA -->
+                    <fieldset>
+                        <legend>⚡ Avaliação de Influência</legend>
+                        
+                        <div class="question">
+                            <h3>3. Qual o nível hierárquico/autoridade formal deste stakeholder?</h3>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="influencia3" value="4" required>
+                                    <span>Executivo/Alta Direção (4 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="influencia3" value="3">
+                                    <span>Gerência/Média (3 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="influencia3" value="2">
+                                    <span>Supervisão (2 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="influencia3" value="1">
+                                    <span>Especialista/Técnico (1 pt)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="influencia3" value="0">
+                                    <span>Operacional (0 pts)</span>
+                                </label>
+                            </div>
+                        </div>
 
-      <p>2. Como este stakeholder reage quando o projeto é mencionado?</p>
-      <label class="inline">
-        <input type="radio" name="interesse2" value="4" required>
-        Muito Positiva (4 pontos)
-      </label>
-      <label class="inline">
-        <input type="radio" name="interesse2" value="3">
-        Positiva (3 pontos)
-      </label>
-      <label class="inline">
-        <input type="radio" name="interesse2" value="2">
-        Neutra (2 pontos)
-      </label>
-      <label class="inline">
-        <input type="radio" name="interesse2" value="1">
-        Negativa (1 ponto)
-      </label>
-      <label class="inline">
-        <input type="radio" name="interesse2" value="0">
-        Muito Negativa (0 pontos)
-      </label>
-    </fieldset>
+                        <div class="question">
+                            <h3>4. Qual a influência informal deste stakeholder sobre outros colaboradores?</h3>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="influencia4" value="4" required>
+                                    <span>Muito Alta (4 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="influencia4" value="3">
+                                    <span>Alta (3 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="influencia4" value="2">
+                                    <span>Moderada (2 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="influencia4" value="1">
+                                    <span>Baixa (1 pt)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="influencia4" value="0">
+                                    <span>Muito Baixa (0 pts)</span>
+                                </label>
+                            </div>
+                        </div>
 
-    <!-- SEÇÃO C -->
-    <fieldset>
-      <legend>Seção C: Avaliação de Influência</legend>
+                        <div class="question">
+                            <h3>5. Este stakeholder tem poder de decisão sobre recursos, orçamento ou pessoas?</h3>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="influencia5" value="4" required>
+                                    <span>Decisão final (4 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="influencia5" value="3">
+                                    <span>Decisão compartilhada (3 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="influencia5" value="2">
+                                    <span>Influência na decisão (2 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="influencia5" value="1">
+                                    <span>Consultado (1 pt)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="influencia5" value="0">
+                                    <span>Sem poder (0 pts)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
 
-      <p>3. Qual o nível hierárquico/autoridade formal deste stakeholder?</p>
-      <label class="inline">
-        <input type="radio" name="influencia3" value="4" required>
-        Executivo/Alta Direção (4 pts)
-      </label>
-      <label class="inline">
-        <input type="radio" name="influencia3" value="3">
-        Gerência/Média (3 pts)
-      </label>
-      <label class="inline">
-        <input type="radio" name="influencia3" value="2">
-        Supervisão (2 pts)
-      </label>
-      <label class="inline">
-        <input type="radio" name="influencia3" value="1">
-        Especialista/Técnico (1 pt)
-      </label>
-      <label class="inline">
-        <input type="radio" name="influencia3" value="0">
-        Operacional (0 pts)
-      </label>
+                    <!-- SEÇÃO D: ENVOLVIMENTO -->
+                    <fieldset>
+                        <legend>🤝 Avaliação de Envolvimento</legend>
+                        
+                        <div class="question">
+                            <h3>6. Qual o nível de envolvimento direto deste stakeholder no projeto?</h3>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="envolvimento6" value="4" required>
+                                    <span>Diretamente responsável (4 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="envolvimento6" value="3">
+                                    <span>Muito envolvido (3 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="envolvimento6" value="2">
+                                    <span>Moderado (2 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="envolvimento6" value="1">
+                                    <span>Pouco envolvido (1 pt)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="envolvimento6" value="0">
+                                    <span>Não envolvido (0 pts)</span>
+                                </label>
+                            </div>
+                        </div>
 
-      <p>4. Qual a influência informal deste stakeholder sobre outros colaboradores?</p>
-      <label class="inline">
-        <input type="radio" name="influencia4" value="4" required>
-        Muito Alta (4 pts)
-      </label>
-      <label class="inline">
-        <input type="radio" name="influencia4" value="3">
-        Alta (3 pts)
-      </label>
-      <label class="inline">
-        <input type="radio" name="influencia4" value="2">
-        Moderada (2 pts)
-      </label>
-      <label class="inline">
-        <input type="radio" name="influencia4" value="1">
-        Baixa (1 pt)
-      </label>
-      <label class="inline">
-        <input type="radio" name="influencia4" value="0">
-        Muito Baixa (0 pts)
-      </label>
+                        <div class="question">
+                            <h3>7. Este stakeholder será impactado pela mudança em suas atividades diárias?</h3>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="impacto7" value="4" required>
+                                    <span>Muito alto (4 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="impacto7" value="3">
+                                    <span>Alto (3 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="impacto7" value="2">
+                                    <span>Moderado (2 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="impacto7" value="1">
+                                    <span>Baixo (1 pt)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="impacto7" value="0">
+                                    <span>Sem impacto (0 pts)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
 
-      <p>5. Este stakeholder tem poder de decisão sobre recursos, orçamento ou pessoas?</p>
-      <label class="inline">
-        <input type="radio" name="influencia5" value="4" required>
-        Decisão final (4 pts)
-      </label>
-      <label class="inline">
-        <input type="radio" name="influencia5" value="3">
-        Decisão compartilhada (3 pts)
-      </label>
-      <label class="inline">
-        <input type="radio" name="influencia5" value="2">
-        Influência na decisão (2 pts)
-      </label>
-      <label class="inline">
-        <input type="radio" name="influencia5" value="1">
-        Consultado (1 pt)
-      </label>
-      <label class="inline">
-        <input type="radio" name="influencia5" value="0">
-        Sem poder (0 pts)
-      </label>
-    </fieldset>
+                    <!-- SEÇÃO E: LOCALIZAÇÃO -->
+                    <fieldset>
+                        <legend>📍 Localização Organizacional</legend>
+                        <div class="question">
+                            <h3>8. Este stakeholder é:</h3>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="localizacao8" value="2" required>
+                                    <span>Interno à organização (2 pts)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="localizacao8" value="0">
+                                    <span>Externo à organização (0 pts)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
 
-    <!-- SEÇÃO D -->
-    <fieldset>
-      <legend>Seção D: Avaliação de Envolvimento</legend>
+                    <!-- OBSERVAÇÕES -->
+                    <fieldset>
+                        <legend>📝 Observações Adicionais</legend>
+                        <div class="form-group">
+                            <label>Comentários sobre comportamentos observados:</label>
+                            <textarea name="obs_comportamentos" placeholder="Descreva comportamentos relevantes observados..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Preocupações específicas identificadas:</label>
+                            <textarea name="obs_preocupacoes" placeholder="Liste preocupações específicas..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Oportunidades de engajamento:</label>
+                            <textarea name="obs_oportunidades" placeholder="Identifique oportunidades de engajamento..."></textarea>
+                        </div>
+                    </fieldset>
 
-      <p>6. Qual o nível de envolvimento direto deste stakeholder no projeto?</p>
-      <label class="inline">
-        <input type="radio" name="envolvimento6" value="4" required>
-        Diretamente responsável (4 pts)
-      </label>
-      <label class="inline">
-        <input type="radio" name="envolvimento6" value="3">
-        Muito envolvido (3 pts)
-      </label>
-      <label class="inline">
-        <input type="radio" name="envolvimento6" value="2">
-        Moderado (2 pts)
-      </label>
-      <label class="inline">
-        <input type="radio" name="envolvimento6" value="1">
-        Pouco envolvido (1 pt)
-      </label>
-      <label class="inline">
-        <input type="radio" name="envolvimento6" value="0">
-        Não envolvido (0 pts)
-      </label>
+                    <div class="btn-container">
+                        <button type="submit" class="btn">🎯 Calcular Classificação</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-      <p>7. Este stakeholder será impactado pela mudança em suas atividades diárias?</p>
-      <label class="inline">
-        <input type="radio" name="impacto7" value="4" required>
-        Muito alto (4 pts)
-      </label>
-      <label class="inline">
-        <input type="radio" name="impacto7" value="3">
-        Alto (3 pts)
-      </label>
-      <label class="inline">
-        <input type="radio" name="impacto7" value="2">
-        Moderado (2 pts)
-      </label>
-      <label class="inline">
-        <input type="radio" name="impacto7" value="1">
-        Baixo (1 pt)
-      </label>
-      <label class="inline">
-        <input type="radio" name="impacto7" value="0">
-        Sem impacto (0 pts)
-      </label>
-    </fieldset>
+        <!-- PÁGINA DE RESULTADOS -->
+        <div id="results-page" class="results-page">
+            <div class="header">
+                <h1>📊 Resultado da Classificação</h1>
+                <p>Análise completa do perfil do stakeholder</p>
+            </div>
 
-    <!-- SEÇÃO E -->
-    <fieldset>
-      <legend>Seção E: Localização Organizacional</legend>
-      <label class="inline">
-        <input type="radio" name="localizacao8" value="2" required>
-        Interno à organização (2 pts)
-      </label>
-      <label class="inline">
-        <input type="radio" name="localizacao8" value="0">
-        Externo à organização (0 pts)
-      </label>
-    </fieldset>
+            <div class="form-content">
+                <div class="result-card">
+                    <div class="result-header">
+                        <h2 id="stakeholder-name">Nome do Stakeholder</h2>
+                        <p id="stakeholder-dept">Departamento</p>
+                        <p id="evaluation-date">Data da Avaliação</p>
+                    </div>
 
-    <!-- CLASSIFICAÇÃO FINAL -->
-    <fieldset>
-      <legend>Classificação Final</legend>
-      <label><input type="radio" name="classificacao" value="defensor"> 1. Defensor/Apoiador</label>
-      <label><input type="radio" name="classificacao" value="neutro"> 2. Neutro</label>
-      <label><input type="radio" name="classificacao" value="resistente"> 3. Resistente</label>
-      <label><input type="radio" name="classificacao" value="impactado"> 4. Impactado</label>
-      <label><input type="radio" name="classificacao" value="influenciador"> 5. Chave/Influenciador</label>
-      <label><input type="radio" name="classificacao" value="externo"> 6. Externo</label>
-    </fieldset>
+                    <div class="score-section">
+                        <div class="score-card">
+                            <h3>💡 Interesse</h3>
+                            <div class="score-value" id="score-interesse">0/8</div>
+                        </div>
+                        <div class="score-card">
+                            <h3>⚡ Influência</h3>
+                            <div class="score-value" id="score-influencia">0/12</div>
+                        </div>
+                        <div class="score-card">
+                            <h3>🤝 Envolvimento</h3>
+                            <div class="score-value" id="score-envolvimento">0/8</div>
+                        </div>
+                        <div class="score-card">
+                            <h3>📍 Localização</h3>
+                            <div class="score-value" id="score-localizacao">0/2</div>
+                        </div>
+                    </div>
 
-    <!-- OBSERVAÇÕES E ESTRATÉGIAS -->
-    <fieldset>
-      <legend>Observações Adicionais</legend>
-      <label>Comentários sobre comportamentos observados:
-        <textarea name="obs_comportamentos"></textarea>
-      </label>
-      <label>Preocupações específicas identificadas:
-        <textarea name="obs_preocupacoes"></textarea>
-      </label>
-      <label>Oportunidades de engajamento:
-        <textarea name="obs_oportunidades"></textarea>
-      </label>
-    </fieldset>
+                    <div class="classification-result">
+                        <div class="classification-title" id="classification-type">Tipo de Stakeholder</div>
+                        <p id="classification-description">Descrição da classificação</p>
+                    </div>
 
-    <fieldset>
-      <legend>Estratégias e Próximos Passos</legend>
-      <label>Estratégias recomendadas:
-        <textarea name="estrategias"></textarea>
-      </label>
-      <label>Próximos passos sugeridos:
-        <textarea name="proximos_passos"></textarea>
-      </label>
-    </fieldset>
+                    <div class="result-card">
+                        <h3 style="color: #ff4500; margin-bottom: 15px;">📋 Observações</h3>
+                        <div id="observations-content"></div>
+                    </div>
 
-    <button type="submit">Enviar</button>
-  </form>
+                    <div class="result-card">
+                        <h3 style="color: #ff4500; margin-bottom: 15px;">🎯 Estratégias Recomendadas</h3>
+                        <div id="strategies-content"></div>
+                    </div>
 
+                    <div class="btn-container">
+                        <button type="button" class="back-btn" onclick="goBack()">← Voltar ao Questionário</button>
+                        <button type="button" class="btn" onclick="window.print()">🖨️ Imprimir Resultado</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('stakeholder-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Coletar dados do formulário
+            const formData = new FormData(this);
+            
+            // Calcular pontuações
+            const interesse = parseInt(formData.get('interesse1') || 0) + parseInt(formData.get('interesse2') || 0);
+            const influencia = parseInt(formData.get('influencia3') || 0) + parseInt(formData.get('influencia4') || 0) + parseInt(formData.get('influencia5') || 0);
+            const envolvimento = parseInt(formData.get('envolvimento6') || 0) + parseInt(formData.get('impacto7') || 0);
+            const localizacao = parseInt(formData.get('localizacao8') || 0);
+            
+            // Determinar classificação
+            const classification = determineClassification(interesse, influencia, envolvimento, localizacao);
+            
+            // Preencher página de resultados
+            document.getElementById('stakeholder-name').textContent = formData.get('nome') || 'Nome não informado';
+            document.getElementById('stakeholder-dept').textContent = formData.get('departamento') || 'Departamento não informado';
+            document.getElementById('evaluation-date').textContent = formData.get('data') || 'Data não informada';
+            
+            document.getElementById('score-interesse').textContent = `${interesse}/8`;
+            document.getElementById('score-influencia').textContent = `${influencia}/12`;
+            document.getElementById('score-envolvimento').textContent = `${envolvimento}/8`;
+            document.getElementById('score-localizacao').textContent = `${localizacao}/2`;
+            
+            document.getElementById('classification-type').textContent = classification.type;
+            document.getElementById('classification-description').textContent = classification.description;
+            
+            // Preencher observações
+            const observations = [
+                formData.get('obs_comportamentos'),
+                formData.get('obs_preocupacoes'),
+                formData.get('obs_oportunidades')
+            ].filter(obs => obs && obs.trim());
+            
+            document.getElementById('observations-content').innerHTML = observations.length > 0 
+                ? observations.map(obs => `<p>• ${obs}</p>`).join('')
+                : '<p>Nenhuma observação registrada.</p>';
+            
+            // Preencher estratégias
+            document.getElementById('strategies-content').innerHTML = classification.strategies;
+            
+            // Mostrar página de resultados
+            document.getElementById('questionnaire-page').style.display = 'none';
+            document.getElementById('results-page').style.display = 'block';
+            
+            // Scroll para o topo
+            window.scrollTo(0, 0);
+        });
+
+        function determineClassification(interesse, influencia, envolvimento, localizacao) {
+            if (localizacao === 0) {
+                return {
+                    type: '🌐 Stakeholder Externo',
+                    description: 'Stakeholder externo à organização (fornecedor, cliente, regulador, etc.)',
+                    strategies: `
+                        <p><strong>Estratégias Recomendadas:</strong></p>
+                        <ul>
+                            <li>Comunicação formal e estruturada</li>
+                            <li>Relatórios regulares de progresso</li>
+                            <li>Canais de feedback bem definidos</li>
+                            <li>Alinhamento de expectativas contratuais</li>
+                        </ul>
+                    `
+                };
+            }
+            
+            if (interesse >= 6 && influencia >= 8 && envolvimento >= 6) {
+                return {
+                    type: '🚀 Stakeholder Defensor/Apoiador',
+                    description: 'Alto interesse + Alta influência + Alto envolvimento + Interno',
+                    strategies: `
+                        <p><strong>Estratégias Recomendadas:</strong></p>
+                        <ul>
+                            <li>Envolver como embaixador do projeto</li>
+                            <li>Solicitar apoio ativo na comunicação</li>
+                            <li>Incluir em decisões estratégicas</li>
+                            <li>Reconhecer publicamente suas contribuições</li>
+                        </ul>
+                    `
+                };
+            }
+            
+            if (interesse >= 3 && interesse <= 5 && influencia >= 4 && influencia <= 7 && envolvimento >= 3 && envolvimento <= 5) {
+                return {
+                    type: '⚖️ Stakeholder Neutro',
+                    description: 'Interesse moderado + Influência moderada + Envolvimento moderado + Interno',
+                    strategies: `
+                        <p><strong>Estratégias Recomendadas:</strong></p>
+                        <ul>
+                            <li>Manter informado regularmente</li>
+                            <li>Buscar oportunidades de engajamento</li>
+                            <li>Demonstrar benefícios do projeto</li>
+                            <li>Solicitar feedback e sugestões</li>
+                        </ul>
+                    `
+                };
+            }
+            
+            if (interesse <= 2 && influencia >= 4 && influencia <= 7 && envolvimento >= 2 && envolvimento <= 4) {
+                return {
+                    type: '⚠️ Stakeholder Resistente',
+                    description: 'Baixo interesse + Influência variável + Envolvimento baixo/moderado + Interno',
+                    strategies: `
+                        <p><strong>Estratégias Recomendadas:</strong></p>
+                        <ul>
+                            <li>Identificar e abordar preocupações específicas</li>
+                            <li>Comunicação personalizada e frequente</li>
+                            <li>Demonstrar valor e benefícios claros</li>
+                            <li>Envolver em pequenas vitórias iniciais</li>
+                        </ul>
+                    `
+                };
+            }
+            
+            if (interesse >= 2 && interesse <= 4 && influencia <= 3 && envolvimento >= 4) {
+                return {
+                    type: '📋 Stakeholder Impactado',
+                    description: 'Interesse moderado + Baixa influência + Alto impacto nas atividades + Interno',
+                    strategies: `
+                        <p><strong>Estratégias Recomendadas:</strong></p>
+                        <ul>
+                            <li>Comunicação clara sobre mudanças</li>
+                            <li>Treinamento e suporte adequado</li>
+                            <li>Canal direto para dúvidas e suporte</li>
+                            <li>Acompanhamento próximo durante transição</li>
+                        </ul>
+                    `
+                };
+            }
+            
+            if (interesse >= 4 && interesse <= 6 && influencia >= 9 && envolvimento >= 2 && envolvimento <= 5) {
+                return {
+                    type: '👑 Stakeholder Chave/Influenciador',
+                    description: 'Interesse moderado/alto + Alta influência + Baixo envolvimento direto + Interno',
+                    strategies: `
+                        <p><strong>Estratégias Recomendadas:</strong></p>
+                        <ul>
+                            <li>Briefings executivos regulares</li>
+                            <li>Envolvimento em decisões estratégicas</li>
+                            <li>Comunicação de alto nível</li>
+                            <li>Buscar patrocínio e apoio institucional</li>
+                        </ul>
+                    `
+                };
+            }
+            
+            // Classificação padrão se não se enquadrar em nenhuma categoria específica
+            return {
+                type: '📊 Classificação Personalizada',
+                description: 'Perfil único que requer análise individual',
+                strategies: `
+                    <p><strong>Estratégias Recomendadas:</strong></p>
+                    <ul>
+                        <li>Análise mais detalhada do perfil</li>
+                        <li>Estratégia personalizada de engajamento</li>
+                        <li>Monitoramento contínuo do comportamento</li>
+                        <li>Adaptação das táticas conforme evolução</li>
+                    </ul>
+                `
+            };
+        }
+
+        function goBack() {
+            document.getElementById('results-page').style.display = 'none';
+            document.getElementById('questionnaire-page').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+    </script>
 </body>
 </html>
