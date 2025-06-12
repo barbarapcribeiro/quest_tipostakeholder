@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Questionário de Classificação de Stakeholders</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    fieldset { margin-bottom: 20px; padding: 15px; }
+    legend { font-weight: bold; }
+    label { display: block; margin: 5px 0; }
+    .inline { display: inline-block; margin-right: 10px; }
+    textarea { width: 100%; height: 80px; }
+  </style>
+</head>
+<body>
+
+  <h1>Questionário de Classificação de Stakeholders</h1>
+  <form id="stakeholder-form">
+
+    <!-- SEÇÃO A -->
+    <fieldset>
+      <legend>Seção A: Identificação do Stakeholder</legend>
+      <label for="nome">Nome/Função do Stakeholder:
+        <input type="text" id="nome" name="nome" required>
+      </label>
+      <label for="departamento">Departamento/Área:
+        <input type="text" id="departamento" name="departamento">
+      </label>
+      <label for="data">Data da Avaliação:
+        <input type="date" id="data" name="data">
+      </label>
+    </fieldset>
+
+    <!-- SEÇÃO B -->
+    <fieldset>
+      <legend>Seção B: Avaliação de Interesse</legend>
+
+      <p>1. Qual o nível de interesse deste stakeholder no projeto de mudança?</p>
+      <label class="inline">
+        <input type="radio" name="interesse1" value="4" required>
+        Muito Alto (4 pontos)
+      </label>
+      <label class="inline">
+        <input type="radio" name="interesse1" value="3">
+        Alto (3 pontos)
+      </label>
+      <label class="inline">
+        <input type="radio" name="interesse1" value="2">
+        Moderado (2 pontos)
+      </label>
+      <label class="inline">
+        <input type="radio" name="interesse1" value="1">
+        Baixo (1 ponto)
+      </label>
+      <label class="inline">
+        <input type="radio" name="interesse1" value="0">
+        Muito Baixo (0 pontos)
+      </label>
+
+      <p>2. Como este stakeholder reage quando o projeto é mencionado?</p>
+      <label class="inline">
+        <input type="radio" name="interesse2" value="4" required>
+        Muito Positiva (4 pontos)
+      </label>
+      <label class="inline">
+        <input type="radio" name="interesse2" value="3">
+        Positiva (3 pontos)
+      </label>
+      <label class="inline">
+        <input type="radio" name="interesse2" value="2">
+        Neutra (2 pontos)
+      </label>
+      <label class="inline">
+        <input type="radio" name="interesse2" value="1">
+        Negativa (1 ponto)
+      </label>
+      <label class="inline">
+        <input type="radio" name="interesse2" value="0">
+        Muito Negativa (0 pontos)
+      </label>
+    </fieldset>
+
+    <!-- SEÇÃO C -->
+    <fieldset>
+      <legend>Seção C: Avaliação de Influência</legend>
+
+      <p>3. Qual o nível hierárquico/autoridade formal deste stakeholder?</p>
+      <label class="inline">
+        <input type="radio" name="influencia3" value="4" required>
+        Executivo/Alta Direção (4 pts)
+      </label>
+      <label class="inline">
+        <input type="radio" name="influencia3" value="3">
+        Gerência/Média (3 pts)
+      </label>
+      <label class="inline">
+        <input type="radio" name="influencia3" value="2">
+        Supervisão (2 pts)
+      </label>
+      <label class="inline">
+        <input type="radio" name="influencia3" value="1">
+        Especialista/Técnico (1 pt)
+      </label>
+      <label class="inline">
+        <input type="radio" name="influencia3" value="0">
+        Operacional (0 pts)
+      </label>
+
+      <p>4. Qual a influência informal deste stakeholder sobre outros colaboradores?</p>
+      <label class="inline">
+        <input type="radio" name="influencia4" value="4" required>
+        Muito Alta (4 pts)
+      </label>
+      <label class="inline">
+        <input type="radio" name="influencia4" value="3">
+        Alta (3 pts)
+      </label>
+      <label class="inline">
+        <input type="radio" name="influencia4" value="2">
+        Moderada (2 pts)
+      </label>
+      <label class="inline">
+        <input type="radio" name="influencia4" value="1">
+        Baixa (1 pt)
+      </label>
+      <label class="inline">
+        <input type="radio" name="influencia4" value="0">
+        Muito Baixa (0 pts)
+      </label>
+
+      <p>5. Este stakeholder tem poder de decisão sobre recursos, orçamento ou pessoas?</p>
+      <label class="inline">
+        <input type="radio" name="influencia5" value="4" required>
+        Decisão final (4 pts)
+      </label>
+      <label class="inline">
+        <input type="radio" name="influencia5" value="3">
+        Decisão compartilhada (3 pts)
+      </label>
+      <label class="inline">
+        <input type="radio" name="influencia5" value="2">
+        Influência na decisão (2 pts)
+      </label>
+      <label class="inline">
+        <input type="radio" name="influencia5" value="1">
+        Consultado (1 pt)
+      </label>
+      <label class="inline">
+        <input type="radio" name="influencia5" value="0">
+        Sem poder (0 pts)
+      </label>
+    </fieldset>
+
+    <!-- SEÇÃO D -->
+    <fieldset>
+      <legend>Seção D: Avaliação de Envolvimento</legend>
+
+      <p>6. Qual o nível de envolvimento direto deste stakeholder no projeto?</p>
+      <label class="inline">
+        <input type="radio" name="envolvimento6" value="4" required>
+        Diretamente responsável (4 pts)
+      </label>
+      <label class="inline">
+        <input type="radio" name="envolvimento6" value="3">
+        Muito envolvido (3 pts)
+      </label>
+      <label class="inline">
+        <input type="radio" name="envolvimento6" value="2">
+        Moderado (2 pts)
+      </label>
+      <label class="inline">
+        <input type="radio" name="envolvimento6" value="1">
+        Pouco envolvido (1 pt)
+      </label>
+      <label class="inline">
+        <input type="radio" name="envolvimento6" value="0">
+        Não envolvido (0 pts)
+      </label>
+
+      <p>7. Este stakeholder será impactado pela mudança em suas atividades diárias?</p>
+      <label class="inline">
+        <input type="radio" name="impacto7" value="4" required>
+        Muito alto (4 pts)
+      </label>
+      <label class="inline">
+        <input type="radio" name="impacto7" value="3">
+        Alto (3 pts)
+      </label>
+      <label class="inline">
+        <input type="radio" name="impacto7" value="2">
+        Moderado (2 pts)
+      </label>
+      <label class="inline">
+        <input type="radio" name="impacto7" value="1">
+        Baixo (1 pt)
+      </label>
+      <label class="inline">
+        <input type="radio" name="impacto7" value="0">
+        Sem impacto (0 pts)
+      </label>
+    </fieldset>
+
+    <!-- SEÇÃO E -->
+    <fieldset>
+      <legend>Seção E: Localização Organizacional</legend>
+      <label class="inline">
+        <input type="radio" name="localizacao8" value="2" required>
+        Interno à organização (2 pts)
+      </label>
+      <label class="inline">
+        <input type="radio" name="localizacao8" value="0">
+        Externo à organização (0 pts)
+      </label>
+    </fieldset>
+
+    <!-- CLASSIFICAÇÃO FINAL -->
+    <fieldset>
+      <legend>Classificação Final</legend>
+      <label><input type="radio" name="classificacao" value="defensor"> 1. Defensor/Apoiador</label>
+      <label><input type="radio" name="classificacao" value="neutro"> 2. Neutro</label>
+      <label><input type="radio" name="classificacao" value="resistente"> 3. Resistente</label>
+      <label><input type="radio" name="classificacao" value="impactado"> 4. Impactado</label>
+      <label><input type="radio" name="classificacao" value="influenciador"> 5. Chave/Influenciador</label>
+      <label><input type="radio" name="classificacao" value="externo"> 6. Externo</label>
+    </fieldset>
+
+    <!-- OBSERVAÇÕES E ESTRATÉGIAS -->
+    <fieldset>
+      <legend>Observações Adicionais</legend>
+      <label>Comentários sobre comportamentos observados:
+        <textarea name="obs_comportamentos"></textarea>
+      </label>
+      <label>Preocupações específicas identificadas:
+        <textarea name="obs_preocupacoes"></textarea>
+      </label>
+      <label>Oportunidades de engajamento:
+        <textarea name="obs_oportunidades"></textarea>
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Estratégias e Próximos Passos</legend>
+      <label>Estratégias recomendadas:
+        <textarea name="estrategias"></textarea>
+      </label>
+      <label>Próximos passos sugeridos:
+        <textarea name="proximos_passos"></textarea>
+      </label>
+    </fieldset>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+</body>
+</html>
